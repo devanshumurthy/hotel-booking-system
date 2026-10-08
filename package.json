@@ -1,0 +1,15 @@
+{
+  "name": "hotel-room-booking-system",
+  "version": "1.0.0",
+  "description": "Full-stack Hotel Room Booking System: Express.js REST API, SQLite database, vanilla JS frontend.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/"
+  },
+  "engines": { "node": ">=22.13" },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

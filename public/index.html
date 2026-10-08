@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harbour Inn · Room Booking</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div>
+    <h1>Harbour Inn front desk</h1>
+    <p id="summary" class="muted">Loading rooms…</p>
+  </div>
+  <p class="today muted" id="todayLabel"></p>
+</header>
+
+<main class="layout">
+  <section class="board" aria-labelledby="roomsHeading">
+    <div class="section-head">
+      <h2 id="roomsHeading">Rooms</h2>
+      <div class="filters" role="group" aria-label="Filter rooms">
+        <button class="chip is-on" data-filter="all">All</button>
+        <button class="chip" data-filter="free">Free tonight</button>
+        <button class="chip" data-filter="occupied">Occupied</button>
+        <button class="chip" data-filter="Maintenance">Maintenance</button>
+      </div>
+    </div>
+    <div id="rooms" class="rooms"></div>
+
+    <div class="section-head bookings-head">
+      <h2>Bookings</h2>
+      <input type="search" id="guestFilter" placeholder="Search by guest name" aria-label="Search bookings by guest name">
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Guest</th><th>Room</th><th>Check-in</th><th>Check-out</th><th class="num">Nights</th><th class="num">Total</th><th><span class="sr">Actions</span></th></tr></thead>
+        <tbody id="bookings"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <aside class="panel">
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tabFind" aria-selected="true" aria-controls="paneFind">Find a room</button>
+      <button role="tab" id="tabAdd" aria-selected="false" aria-controls="paneAdd">Add a room</button>
+    </div>
+
+    <form id="paneFind" role="tabpanel" aria-labelledby="tabFind" novalidate>
+      <div class="row2">
+        <label>Check-in<input type="date" id="sIn" required></label>
+        <label>Check-out<input type="date" id="sOut" required></label>
+      </div>
+      <div class="row2">
+        <label>Room type
+          <select id="sType"><option value="">Any type</option><option>Single</option><option>Double</option><option>Deluxe</option><option>Suite</option></select>
+        </label>
+        <label>Max price per night<input type="number" id="sMax" min="1" placeholder="No limit"></label>
+      </div>
+      <button class="primary" type="submit">Show free rooms</button>
+      <p id="findMsg" class="msg" role="alert"></p>
+      <ul id="results" class="results"></ul>
+    </form>
+
+    <form id="paneAdd" role="tabpanel" aria-labelledby="tabAdd" hidden novalidate>
+      <div class="row2">
+        <label>Room number<input id="aNo" maxlength="10" required placeholder="e.g. 204"></label>
+        <label>Price per night<input type="number" id="aPrice" min="1" required></label>
+      </div>
+      <div class="row2">
+        <label>Room type
+          <select id="aType"><option>Single</option><option>Double</option><option>Deluxe</option><option>Suite</option></select>
+        </label>
+        <label>Status
+          <select id="aStatus"><option>Available</option><option>Maintenance</option></select>
+        </label>
+      </div>
+      <button class="primary" type="submit">Add room</button>
+      <p id="addMsg" class="msg" role="alert"></p>
+    </form>
+  </aside>
+</main>
+
+<dialog id="bookDialog" aria-labelledby="bookTitle">
+  <form method="dialog" id="bookForm" novalidate>
+    <h2 id="bookTitle">Book room</h2>
+    <p id="bookInfo" class="muted"></p>
+    <label>Guest name<input id="bName" required minlength="2" maxlength="80" autocomplete="off"></label>
+    <div class="row2">
+      <label>Check-in<input type="date" id="bIn" required></label>
+      <label>Check-out<input type="date" id="bOut" required></label>
+    </div>
+    <p id="bookQuote" class="muted"></p>
+    <p id="bookMsg" class="msg" role="alert"></p>
+    <div class="actions">
+      <button type="button" class="ghost" id="bookCancel">Close</button>
+      <button type="submit" class="primary">Confirm booking</button>
+    </div>
+  </form>
+</dialog>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
